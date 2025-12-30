@@ -1,0 +1,9 @@
+## useCallback Hook
+
+This react hook lets you memoize a fn definition, means it stores the fn result of fn in cache so it optimizes the code 
+
+useCallback(fn, dependencies)
+
+## useEffect Hook
+
+This hook in react allows you to perform side effects in components , such as data fetching , subscription or dom manipulation

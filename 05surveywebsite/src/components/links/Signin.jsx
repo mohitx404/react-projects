@@ -1,16 +1,37 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React,{useState} from 'react'
+import { Link,useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import survey from '../../assets/survey.png'
 import SplitBackground from '../SplitBackground';
+import { useFirebase } from '../context/Firebase';
 
 function Signin() {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+  const firebase = useFirebase()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    {/* Here signupUserWithEmailAndPassword will return a promise from Firebase */ }
+    firebase.signinUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        console.log('User Logged In !')
+        // navigate('/home')
+      })
+      .catch((err) => { 
+        console.log('Login error:', err.message)
+      })
+
+  };
+
   return (
     <div className='relative flex flex-col p-8 w-full min-h-screen md:grid md:grid-cols-2 md:gap-16'>
-      {/* Background split */}  
-      <SplitBackground  leftColor="bg-black" rightColor="bg-[#f8f8fa]"/>
-      
+      {/* Background split */}
+      <SplitBackground leftColor="bg-black" rightColor="bg-[#f8f8fa]" />
+
       {/* Left column - needs relative to appear above background */}
       <div className='relative md:p-20'>
         <Link
@@ -24,33 +45,45 @@ function Signin() {
         <h2 className='mt-4 text-gray-500 md:text-gray-300 leading-tight'>
           Please enter the e-mail address and password for Log in
         </h2>
-        
-        <form className='mt-8 flex flex-col' action="#">
+
+        <form className='mt-8 flex flex-col' onSubmit={handleSubmit}>
           <label className='text-black md:text-white font-medium' htmlFor="email">
             Email address
           </label>
-          <input 
+          <input
             id="email"
-            className='border-gray-500 border-2 p-2 mt-2 rounded' 
-            placeholder='Email' 
-            type="email" 
+            onChange={e => setEmail(e.target.value)}
+            value={email}
+            className='border-gray-500 border-2 p-2 mt-2 rounded'
+            placeholder='Email'
+            type="email"
           />
-          
+
           <label className='mt-6 text-black md:text-white font-medium' htmlFor="password">
             Password
           </label>
-          <input 
+          <input
             id="password"
-            className='border-gray-500 border-2 p-2 mt-2 rounded' 
-            placeholder='Password' 
-            type="password" 
+            onChange={e => setPassword(e.target.value)}
+            value={password}
+            className='border-gray-500 border-2 p-2 mt-2 rounded'
+            placeholder='Password'
+            type="password"
           />
-          
-          <button 
+
+          <button
             type="submit"
-            className='border-2 border-black p-2 mt-8 w-28 rounded bg-white md:bg-white font-bold hover:bg-black hover:text-white transition'
+            className='border-2 border-black p-2 mt-8 rounded bg-white md:bg-white font-bold hover:bg-gray-500 hover:text-white transition'
           >
             Log In
+          </button>
+          <div className="my-6 border-t border-gray-300"></div>
+          <button
+            type="submit"
+            onClick={firebase.signinUserWithGoogleAuth}
+            className='border-2 border-black p-2 mt-1 text-white border-none rounded bg-red-500 font-bold md:hover:bg-white hover:text-black transition'
+          >
+            Sign In with Google
           </button>
         </form>
       </div>

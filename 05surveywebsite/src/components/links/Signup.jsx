@@ -1,11 +1,34 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import survey from '../../assets/survey.png'
 import SplitBackground from '../SplitBackground';
+import {useFirebase} from '../context/Firebase'
+import { useNavigate } from 'react-router-dom'
 
 function Signup() {
+
+    const [email,setEmail] = useState('')
+    const [password,setPassword] =useState('')
+    const navigate = useNavigate()
+    const firebase = useFirebase()
+
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        {/* Here signupUserWithEmailAndPassword will return a promise from Firebase */}
+        firebase.signupUserWithEmailAndPassword(email,password)
+        .then((userCredential) => {
+            console.log('User created !')
+            // navigate('/home')
+        })
+        .catch((err)=>{
+            console.log('Signup error:',err)
+        })
+
+    };
+
+
   return (
     <div className='relative flex flex-col p-8 w-full min-h-screen md:grid md:grid-cols-2 md:gap-16'>
       {/* Background split */}  
@@ -25,12 +48,14 @@ function Signup() {
           Please enter the e-mail address and password for Sign up
         </h2>
         
-        <form className='mt-8 flex flex-col' action="#">
+        <form className='mt-8 flex flex-col' onSubmit={handleSubmit}>
           <label className='text-black md:text-white font-medium' htmlFor="email">
             Email address
           </label>
           <input 
             id="email"
+            onChange={e => setEmail(e.target.value)}
+            value={email}
             className='border-gray-500 border-2 p-2 mt-2 rounded' 
             placeholder='Email' 
             type="email" 
@@ -42,6 +67,8 @@ function Signup() {
           </label>
           <input 
             id="password"
+            onChange={e => setPassword(e.target.value)}
+            value={password}
             className='border-gray-500 border-2 p-2 mt-2 rounded' 
             placeholder='Password' 
             type="password" 
@@ -49,7 +76,7 @@ function Signup() {
           
           <button 
             type="submit"
-            className='border-2 border-black p-2 mt-8 w-28 rounded bg-white md:bg-white font-bold hover:bg-black hover:text-white transition'
+            className='border-2 border-black p-2 mt-8 w-28 rounded bg-white md:bg-white font-bold hover:bg-gray-500 hovers:text-white transition'
           >
             Sign up
           </button>

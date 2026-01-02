@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import { Signin, Signup } from "./components/links/index.jsx"
 import Main from './components/Main/Main.jsx';
+import { FirebaseProvider } from './components/context/Firebase.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <FirebaseProvider>
+      <RouterProvider router={router} />
+    </FirebaseProvider>
   </StrictMode>
 )

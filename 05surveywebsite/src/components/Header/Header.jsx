@@ -1,29 +1,24 @@
 import React from "react"
-import { Link, NavLink } from "react-router-dom"
-import logo from '../../assets/logo.png'
-import { userLoggedIn } from "../../context/User"
+import { Link, NavLink, useLocation } from "react-router-dom"
+import SplitBackground from "../SplitBackground"
+import Opinion from '../../assets/Opinion.png'
 
 function Header() {
-
-  const user = userLoggedIn()   // 1 = logged in, 0 = logged out
-
+  const user = 0
+  const location = useLocation()
+  // Check if currently on any auth page
+  const isOnAuthPage = location.pathname === '/signin' || location.pathname === '/signup'
+  
   return (
     <header className="z-50 top-0 relative">
-
-      {/* Background split */}
-      <div className='absolute inset-0 grid grid-cols-2'>
-        <div className='bg-black'></div>
-        <div className='bg-[#f8f8fa]'></div>
-      </div>
-
-      <nav className="px-6 py-4 relative">
+      
+      <SplitBackground  leftColor="bg-black" rightColor="bg-[#f8f8fa]"/>
+      
+      <nav className="px-6 md:py-4 py-1 relative">
         <div className="grid grid-cols-3 items-center">
+          <img className="h-16 w-auto" src={Opinion} alt="logo" />
 
-          {/* Logo */}
-          <img className="h-16 w-auto" src={logo} alt="logo" />
-
-          {/* 👉 Show NAV LINKS only if logged in */}
-          {user.login ? (
+          {user ? (
             <ul className="flex gap-8 justify-center">
               <li>
                 <NavLink
@@ -35,7 +30,6 @@ function Header() {
                   Home
                 </NavLink>
               </li>
-
               <li>
                 <NavLink
                   to="/stats"
@@ -46,7 +40,6 @@ function Header() {
                   Stats
                 </NavLink>
               </li>
-
               <li>
                 <NavLink
                   to="/about"
@@ -57,7 +50,6 @@ function Header() {
                   About
                 </NavLink>
               </li>
-
               <li>
                 <NavLink
                   to="/contact"
@@ -73,26 +65,31 @@ function Header() {
             <div></div>
           )}
 
-          {/* 👉 Show Auth buttons ONLY when NOT logged in */}
           <div className="flex gap-4 justify-end">
-            {!user.login && (
-              <>
-                <Link
-                  to="/signup"
-                  className="px-4 py-2 text-gray-800 border border-gray-800 rounded-full hover:bg-gray-800 hover:text-white transition font-bold"
-                >
-                  Sign Up
-                </Link>
-                <Link
-                  to="/login"
-                  className="px-4 py-2 text-gray-800 border border-gray-800 rounded-full hover:bg-gray-800 hover:text-white transition font-bold"
-                >
-                  Log In
-                </Link>
+            {!user && (
+              <>  
+                {location.pathname !== '/signup' && (
+                  <Link
+                    to="/signup"
+                    replace={isOnAuthPage}  // Replace if on ANY auth page
+                    className="px-4 py-2 text-gray-800 border border-gray-800 rounded-full hover:bg-gray-800 hover:text-white transition font-bold hidden md:block"
+                  >
+                    Sign Up
+                  </Link>
+                )}
+                
+                {location.pathname !== '/signin' && (
+                  <Link
+                    to="/signin"
+                    replace={isOnAuthPage}  // Replace if on ANY auth page
+                    className="px-4 py-2 text-gray-800 border border-gray-800 rounded-full hover:bg-gray-800 hover:text-white transition font-bold"
+                  >
+                    Log In
+                  </Link>
+                )}
               </>
             )}
           </div>
-
         </div>
       </nav>
     </header>

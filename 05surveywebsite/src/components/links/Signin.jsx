@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
@@ -12,6 +12,13 @@ function Signin() {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const firebase = useFirebase()
+
+
+  useEffect(()=>{
+    if(firebase.isLoggedIn){
+      navigate('/Home');
+    }
+  },[firebase,navigate])
 
   const handleSubmit = (e) => {
     e.preventDefault();

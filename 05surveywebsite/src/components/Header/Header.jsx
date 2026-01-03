@@ -2,18 +2,29 @@ import React from "react"
 import { Link, NavLink, useLocation } from "react-router-dom"
 import SplitBackground from "../SplitBackground"
 import Opinion from '../../assets/Opinion.png'
+import { useFirebase } from '../context/Firebase';
 
 function Header() {
   const user = 0
   const location = useLocation()
   // Check if currently on any auth page
   const isOnAuthPage = location.pathname === '/signin' || location.pathname === '/signup'
-  
+  const firebase = useFirebase()
+
+
+
+
   return (
-    <header className="z-50 top-0 relative">
-      
-      <SplitBackground  leftColor="bg-black" rightColor="bg-[#f8f8fa]"/>
-      
+    <header className="z-50 top-0 sticky bg-white md:bg-none">
+
+      {!firebase.isLoggedIn && (
+         <SplitBackground leftColor="bg-black" rightColor="bg-[#f8f8fa]" />
+      )
+
+      }
+
+
+
       <nav className="px-6 md:py-4 py-1 relative">
         <div className="grid grid-cols-3 items-center">
           <img className="h-16 w-auto" src={Opinion} alt="logo" />
@@ -67,7 +78,7 @@ function Header() {
 
           <div className="flex gap-4 justify-end">
             {!user && (
-              <>  
+              <>
                 {location.pathname !== '/signup' && (
                   <Link
                     to="/signup"
@@ -77,7 +88,7 @@ function Header() {
                     Sign Up
                   </Link>
                 )}
-                
+
                 {location.pathname !== '/signin' && (
                   <Link
                     to="/signin"

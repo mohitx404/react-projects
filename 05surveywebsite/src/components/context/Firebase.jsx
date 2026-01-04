@@ -45,10 +45,12 @@ export const FirebaseProvider = ({children}) => {
         return signInWithPopup(auth,Googleprovider)
     }
 
+    const doSignOut = () => auth.signOut();
+
     const isLoggedIn = user ? true : false;
 
     return (
-        <FirebaseContext.Provider value={{signinUserWithGoogleAuth,signinUserWithEmailAndPassword,signupUserWithEmailAndPassword,isLoggedIn}}>
+        <FirebaseContext.Provider value={{signinUserWithGoogleAuth,signinUserWithEmailAndPassword,signupUserWithEmailAndPassword,isLoggedIn,doSignOut}}>
             {children}
         </FirebaseContext.Provider>
     )

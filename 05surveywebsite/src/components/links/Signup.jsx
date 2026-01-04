@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
@@ -27,6 +27,11 @@ function Signup() {
         })
 
     };
+
+    useEffect(()=>{
+      if (firebase.isLoggedIn) 
+        navigate('/home')
+    },[firebase,navigate])
 
 
   return (

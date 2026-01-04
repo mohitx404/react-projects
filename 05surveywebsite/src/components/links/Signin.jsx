@@ -14,11 +14,7 @@ function Signin() {
   const firebase = useFirebase()
 
 
-  useEffect(()=>{
-    if(firebase.isLoggedIn){
-      navigate('/Home');
-    }
-  },[firebase,navigate])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +29,12 @@ function Signin() {
       })
 
   };
+
+    useEffect(()=>{
+    if(firebase.isLoggedIn){
+      navigate('/home ');
+    }
+  },[firebase,navigate])
 
   return (
     <div className='relative flex flex-col p-8 w-full min-h-screen md:grid md:grid-cols-2 md:gap-16'>

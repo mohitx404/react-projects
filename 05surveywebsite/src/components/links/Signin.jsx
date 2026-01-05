@@ -14,15 +14,12 @@ function Signin() {
   const firebase = useFirebase()
 
 
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
     {/* Here signupUserWithEmailAndPassword will return a promise from Firebase */ }
     firebase.signinUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         console.log('User Logged In !')
-        // navigate('/home')
       })
       .catch((err) => { 
         console.log('Login error:', err.message)
@@ -32,7 +29,7 @@ function Signin() {
 
     useEffect(()=>{
     if(firebase.isLoggedIn){
-      navigate('/home ');
+      navigate('/home');
     }
   },[firebase,navigate])
 

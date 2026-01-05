@@ -13,20 +13,20 @@ function Points({ id , className='' }) {
         {
             cardName: 'Google Play Gift',
             img: Google,
-            price: '500',
-            coins: '500'
+            price: '1000',
+            coins: '5000'
         },
         {
             cardName: "Levi's Gift card",
             img: Levis,
             price: '3500',
-            coins: '3500'
+            coins: '5000'
         },
         {
             cardName: 'Bitcoins Redeem',
             img: Bitcoin,
             price: '5000',
-            coins: '10000'
+            coins: '5000'
         }
     ];
 

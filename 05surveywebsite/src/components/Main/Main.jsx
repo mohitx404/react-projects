@@ -30,7 +30,7 @@ function Main() {
                     </p>
                     <Link
                         to="/signup"
-                        className="px-4 py-2 text-gray-800 border border-gray-800 rounded-full hover:bg-gray-800 hover:text-white transition font-bold w-fit"
+                        className="px-4 py-2 border border-gray-500 rounded-full hover:bg-gray-800 hover:text-white text-blue-800  transition font-bold w-fit"
                     >
                         Sign Up
                     </Link>

@@ -18,7 +18,7 @@ export const PointsProvider = ({ children }) => {
   const remainingPoints = MAX_POINTS - points
 
   // Add points with validation
-  const addPoints = useCallback((amount = 1000)=>{
+  const addPoints = useCallback((amount)=>{
         setPoints(prev => Math.min(prev+amount,MAX_POINTS))
   },[])
 

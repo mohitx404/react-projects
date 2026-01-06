@@ -4,8 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBellConcierge } from "@fortawesome/free-solid-svg-icons";
 import Pointscard from '../Points/Pointscard';
 import Points from '../Points/Points';
+import { useFirebase } from '../context/Firebase';
 
 export default function Home() {
+    const firebase = useFirebase()
+
     return (
         <div className='flex flex-col min-h-screen'>
             <div className='flex-grow'>
@@ -25,6 +28,7 @@ export default function Home() {
                         </div>
                         <div className='mt-6 mb-6'>
                             <Link
+                               
                                 to={'/survey'}
                                 className='border-2 text-white rounded-full p-2 px-6 hover:bg-white hover:text-black'>
                                 Start now

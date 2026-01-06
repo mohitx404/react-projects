@@ -22,7 +22,7 @@ function Main() {
                         Shape the news.
                     </p>
 
-                    <h3 className='text-lg text-gray-300 font-semibold'>
+                    <h3 className='text-lg text-gray-500 font-semibold'>
                         Join millions of others in sharing your opinion on politics, sport, entertainment and more
                     </h3>
                     <p className='text-white text-sm hidden md:block'>

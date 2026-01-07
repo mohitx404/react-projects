@@ -52,7 +52,7 @@ function Header() {
                 <NavLink
                   to="/home"
                   className={({ isActive }) =>
-                    `hover:text-orange-500 transition ${isActive ? "text-orange-700" : "text-white"}`
+                    `hover:text-orange-500 transition ${isActive ? "text-orange-700" : "text-gray-800"}`
                   }
                 >
                   Home

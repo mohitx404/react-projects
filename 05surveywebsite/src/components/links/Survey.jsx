@@ -49,7 +49,7 @@ function Survey() {
         {
             id: 3,
             question:
-                "Which technology trend excites you the most and you think will have the biggest impact in the next 5–10 years?",
+                "Which technology trend excites you the most and you think will have the biggest impact in the next 5-10 years?",
             options: [
                 "Artificial Intelligence and Machine Learning",
                 "Blockchain and Cryptocurrency",
@@ -75,11 +75,15 @@ function Survey() {
 
     const [index, setIndex] = useState(0);
     const [selected, setSelected] = useState("");
+    const [error, setError] = useState("");
+
     const handleNext = () => {
         if (!selected) {
-            alert("Please select atleast one option! ")
+            setError("Please Select atleast one option")
+            return
         }
 
+        setError("")
         const prev = JSON.parse(localStorage.getItem("data")) || [];
 
         prev[index] = {
@@ -128,7 +132,9 @@ function Survey() {
                     {op}
                 </label>
             ))}
-
+            {error && 
+                <div className='p-2 m-2 text-gray-500 font-serif'>{error}</div>
+            }
             <button
                 className="p-2 mt-10 self-center bg-gray-200 w-28 border-2 rounded-full hover:text-white hover:transition-all hover:bg-black"
                 onClick={handleNext}

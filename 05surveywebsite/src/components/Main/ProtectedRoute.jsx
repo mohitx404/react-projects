@@ -1,21 +1,16 @@
 import React from 'react'
 import { useFirebase } from '../context/Firebase'
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
 
 function ProtectedRoute({children}) {
-    const firebase = useFirebase()
-    const navigate = useNavigate()
-    if(firebase.isLoggedIn){
-        return (
-            <div className="flex items-center justify-center min-h-screen">
-            <div className="text-xl">Loading...</div>
-            </div>
-        );
-    }
+    const firebase = useFirebase();
 
     if(!firebase.isLoggedIn){
-        return 
+        return <Navigate to='/' replace/>
+        
     }
+
+    return children;
 }
 
 export default ProtectedRoute

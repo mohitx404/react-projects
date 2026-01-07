@@ -34,10 +34,9 @@ const router = createBrowserRouter(
         </ProtectedRoute>
       }/>
       <Route path='about' element={
-        // <ProtectedRoute>
-        //   <About />
-        // </ProtectedRoute>
-        <About/>
+        <ProtectedRoute>
+          <About />
+        </ProtectedRoute>
       }/>
       <Route path='contact' element={
         <ProtectedRoute>
